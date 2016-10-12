@@ -23,9 +23,9 @@ ylabel('Voltage(mV)')
 legend('Detrended PPG Signal')
 % detrend data
 
-%find peaks in ppg data with threshold above
+%find peaks in detrended ppg data with threshold above 500
 figure
-[pks, locs] = findpeaks(PPG_data,seconds,'MinPeakProminence',0.6);
+[pks, locs] = findpeaks(PPG_data,seconds,'MinPeakProminence',500);
 peakInterval = diff(locs);
 hist(peakInterval)
 grid on
@@ -35,9 +35,9 @@ title('Histogram of Peak Intervals (seconds)')
 
 AverageDistance_Peaks = mean(diff(locs))
 
-%find peaks by squaring method thresholding above 0.3
+%find peaks by squaring method thresholding above 450
 l = abs(ppg_data).^2;
-[peaks,locs] = findpeaks(l,t,'MinPeakHeight',0.35,...
+[peaks,locs] = findpeaks(l,t,'MinPeakHeight',450,...
     'MinPeakDistance',0.150);
 %plot detected peaks vs time
 figure;
@@ -46,3 +46,8 @@ hold on
 plot(locs,peaks,'ro') //variable locs holds the time values of detected peaks
 xlabel('Seconds')
 title('Peak identified by thresholding ')
+
+%find peaks of first derivative:
+g = gausswin (5); g = g / sum(g); 
+conv_ppg = conv(ppg, g, 'same');
+[pks_1deriv, loc_1deriv_peaks]= findpeaks(conv_sig(g), 'MINPEAKHEIGHT',1,'MINPEAKDISTANCE' ,18) %play around with thresholds to find  a resonable value
