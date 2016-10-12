@@ -1,0 +1,9 @@
+Source: record mimic2wdb/30/3000858/3000858  Start: [21:30:24.632]
+val has 1 row (signal) and 1000000 columns (samples/signal)
+Duration:  2:13:20
+Sampling frequency: 125 Hz  Sampling interval: 0.008 sec
+Row	Signal	Gain	Base	Units
+1	PLETH	1023	0	NU
+
+To convert from raw units to the physical units shown
+above, subtract 'base' and divide by 'gain'.
